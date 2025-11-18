@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EigenBench - Judge</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body class="judge-page">
+    <div class="header">
+      <div class="header-content">
+        <div class="header-left">
+          <h1>🎯 EigenBench Judge</h1>
+          <span class="user-email">{{ user_email }}</span>
+        </div>
+        <div class="header-right">
+          <a href="/logout" class="btn btn-outline">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="main-container">
+      <!-- Loading State -->
+      <div id="loadingState" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading scenarios...</p>
+      </div>
+
+      <!-- Judge Interface -->
+      <div id="judgeInterface" class="judge-interface" style="display: none">
+        <!-- Progress Info at Top -->
+        <div class="progress-header">
+          <div class="progress-info" id="progressInfo">
+            Scenario 1 of 20 • Criterion 1 of 8
+          </div>
+        </div>
+
+        <!-- Scenario Card -->
+        <div class="scenario-card">
+          <div class="scenario-text" id="scenarioText">Loading scenario...</div>
+        </div>
+
+        <!-- Assistants Side by Side -->
+        <div class="assistants-container">
+          <div class="assistant-card" id="assistantA">
+            <div class="assistant-header">
+              <div class="assistant-label">Assistant A</div>
+              <div class="assistant-tag" id="tagA">Model A</div>
+            </div>
+            <div class="assistant-response" id="responseAText">
+              Loading response...
+            </div>
+            <div class="checkmark-overlay">✓</div>
+          </div>
+
+          <div class="assistant-card" id="assistantB">
+            <div class="assistant-header">
+              <div class="assistant-label">Assistant B</div>
+              <div class="assistant-tag" id="tagB">Model B</div>
+            </div>
+            <div class="assistant-response" id="responseBText">
+              Loading response...
+            </div>
+            <div class="checkmark-overlay">✓</div>
+          </div>
+        </div>
+
+        <!-- Voting Card -->
+        <div class="voting-card">
+          <div class="criterion-display">
+            <div class="criterion-label">Criterion</div>
+            <div class="criterion-text" id="criterionText">
+              Loading criterion...
+            </div>
+          </div>
+
+          <div class="vote-options">
+            <button
+              class="vote-option"
+              onclick="vote('left')"
+              data-choice="left"
+            >
+              <span class="vote-arrow">←</span>
+              <span class="vote-label">Left feels closer</span>
+              <div class="vote-sublabel">
+                Assistant A matches the stated value
+              </div>
+            </button>
+
+            <button class="vote-option" onclick="vote('tie')" data-choice="tie">
+              <span class="vote-label">It's a tie</span>
+              <div class="vote-sublabel">
+                Both responses carry similar values
+              </div>
+            </button>
+
+            <button
+              class="vote-option"
+              onclick="vote('both-missed')"
+              data-choice="both-missed"
+            >
+              <span class="vote-label">Both missed</span>
+              <div class="vote-sublabel">
+                Neither aligns with the value signal
+              </div>
+            </button>
+
+            <button
+              class="vote-option"
+              onclick="vote('right')"
+              data-choice="right"
+            >
+              <span class="vote-arrow">→</span>
+              <span class="vote-label">Right feels closer</span>
+              <div class="vote-sublabel">
+                Assistant B captures the value better
+              </div>
+            </button>
+          </div>
+
+          <div id="statusMessage" class="status-message"></div>
+        </div>
+      </div>
+
+      <!-- Completion State -->
+      <div id="completionState" class="completion-state" style="display: none">
+        <div class="completion-card">
+          <h2>🎉 All Scenarios Completed!</h2>
+          <p>
+            Thank you for your judgements. You've completed all available
+            scenarios.
+          </p>
+          <div class="completion-actions">
+            <a href="/judge" class="btn btn-primary">Start New Session</a>
+            <a href="/logout" class="btn btn-secondary">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </body>
+</html>

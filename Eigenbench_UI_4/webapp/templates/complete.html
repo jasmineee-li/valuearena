@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EigenBench - Complete</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body class="complete-page">
+    <div class="completion-container">
+      <div class="completion-card large">
+        <div class="completion-icon">🎉</div>
+        <h1>Session Complete!</h1>
+        <p class="completion-message">
+          Thank you for your valuable judgements,
+          <strong>{{ user_email }}</strong>!
+        </p>
+        <p class="completion-description">
+          Your evaluations contribute to understanding how different AI models
+          align with various constitutional principles. This data helps improve
+          AI safety and alignment research.
+        </p>
+
+        <div class="completion-actions">
+          <a href="/judge" class="btn btn-primary">Judge More Scenarios</a>
+          <a href="/logout" class="btn btn-outline">Logout</a>
+        </div>
+
+        <div class="completion-stats">
+          <p class="small-text">
+            Want to use a different constitution or dataset?<br />
+            Update the URL parameters:
+            <code>?constitution=path&dataset=path</code>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
